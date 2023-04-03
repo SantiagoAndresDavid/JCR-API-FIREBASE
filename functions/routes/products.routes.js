@@ -53,5 +53,13 @@ router.put("/api/products/:product", async (req, res) => {
     return res.status(500).json();
   }
 });
-
+router.delete("/api/products/:product", async (req, res) => {
+  try {
+    const doc = db.collection("products").doc(req.params.product);
+    await doc.delete();
+    return res.status(200).json();
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+});
 module.exports = router;
